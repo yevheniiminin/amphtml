@@ -49,20 +49,24 @@ class AmpO2player extends AMP.BaseElement {
       this.domain_ = '//delivery.' +
           (env != 'stage' ? '' : 'dev.') + 'vidible.tv';
       let src = `${this.domain_}/htmlembed/`;
+      const queryParams = [];
       if (pid && bcid) {
         src += 'pid=' + encodeURIComponent(pid) + '/'
             + encodeURIComponent(bcid) + '.html';
         if (bid) {
-          src += '?bid=' + encodeURIComponent(bid);
+          queryParams.push('bid=' + encodeURIComponent(bid));
         }
         if (vid) {
-          src += (bid ? '&' : '?') + 'vid=' + encodeURIComponent(vid);
+          queryParams.push('vid=' + encodeURIComponent(vid));
         }
       } else if (vid) {
         src += encodeURIComponent(vid) + '.html';
       }
       if (macros) {
-        src += (src.split('?')[1] ? '&' : '?') + macros;
+        queryParams.push(macros);
+      }
+      if (queryParams.length > 0) {
+        src += '?' + queryParams.join('&');
       }
       const iframe = this.element.ownerDocument.createElement('iframe');
       iframe.setAttribute('frameborder', '0');

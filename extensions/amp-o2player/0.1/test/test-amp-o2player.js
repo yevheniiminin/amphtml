@@ -87,11 +87,11 @@ describe('amp-o2player', () => {
       expect(iframe.getAttribute('height')).to.equal('222');
     });
   });
-  
+
   it('renders with data-macros passed', () => {
     return getO2player({
       'data-vid': '123',
-      'data-macros': 'm.test=test'
+      'data-macros': 'm.test=test',
     }).then(o2 => {
       const iframe = o2.querySelector('iframe');
       expect(iframe).to.not.be.null;
