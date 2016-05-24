@@ -102,4 +102,19 @@ describe('amp-o2player', () => {
       expect(iframe.getAttribute('height')).to.equal('222');
     });
   });
+
+  it('respects data-env parameter', () => {
+    return getO2player({
+      'data-vid': '123',
+      'data-env': 'stage',
+    }).then(o2 => {
+      const iframe = o2.querySelector('iframe');
+      expect(iframe).to.not.be.null;
+      expect(iframe.tagName).to.equal('IFRAME');
+      expect(iframe.src).to.equal(
+          '//delivery.dev.vidible.tv/htmlembed/123.html');
+      expect(iframe.getAttribute('width')).to.equal('111');
+      expect(iframe.getAttribute('height')).to.equal('222');
+    });
+  });
 });
